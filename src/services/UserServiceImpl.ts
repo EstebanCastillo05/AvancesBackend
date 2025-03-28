@@ -9,7 +9,6 @@ export class UserServiceImpl implements UserServices {
         this.userRepository = new UserRepository();
     }
 
-
     async findAll(): Promise<User[]> {
         return await this.userRepository.findALL();
     }
@@ -24,5 +23,18 @@ export class UserServiceImpl implements UserServices {
 
     async validarLogin(username: string, password: string): Promise<User | null> {
         return await this.userRepository.validarLoginn(username, password);
+    }
+
+    async create(userData: Partial<User>): Promise<User> {
+        return await this.userRepository.create(userData);
+    }
+    async update(id: number, userData: Partial<User>): Promise<User | null> {
+        const updatedRow = await this.userRepository.update(id, userData);
+        if (updatedRow[0] === 0)  return null;  
+        return await this.findById(id); 
+    }
+    async delete(id: number): Promise<boolean> {
+        const deletedRow = await this.userRepository.delete(id);
+        return deletedRow > 0; 
     }
 } 

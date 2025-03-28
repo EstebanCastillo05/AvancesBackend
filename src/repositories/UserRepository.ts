@@ -19,4 +19,17 @@ export class UserRepository {
             }
         });
     }
+
+    async create (userData: Partial<User>): Promise<User> {
+        return await User.create(userData);
+    }
+
+    async update (id: number, userData: Partial<User>): Promise<[number]> {
+        return await User.update(userData, { where: { id } });
+    }
+
+    async delete (id: number): Promise<number> {
+        return await User.destroy({where : {id} });
+    }
+
 }
