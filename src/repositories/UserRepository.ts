@@ -10,14 +10,12 @@ export class UserRepository {
         return await User.findByPk(id);
     }
 
-    async validarLoginn(username: string, password: string): Promise<User | null> {
-        return await User.findOne
-        ({
-            where: {
-                username: username,
-                password: password
-            }
-        });
+    async validarLogin(username: string, password: string): Promise<User | null> {
+        const user = await User.findOne({ where: { username } });
+        if (!user || user.password !== password) {
+            return null;
+        }
+        return user;
     }
 
     async create (userData: Partial<User>): Promise<User> {

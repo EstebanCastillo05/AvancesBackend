@@ -7,9 +7,10 @@ const userController = new UserController();
 
 router.get('/', userController.findAll.bind(userController));
 router.get('/findByIdByPathVariable/:id', userController.findById.bind(userController)); //estructura para captura
-router.get('/findByIdByQueryParams', userController.findByIdRequestParams.bind(userController)); 
-    //estructura para captura
-router.get('/login', userController.login.bind(userController));
+router.get('/findByIdByQueryParams', userController.findByIdRequestParams.bind(userController));
+
+
+router.post('/login', userController.login.bind(userController));
 
 
 router.post('/', userController.create.bind(userController)); 

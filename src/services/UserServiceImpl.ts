@@ -22,7 +22,7 @@ export class UserServiceImpl implements UserServices {
     }
 
     async validarLogin(username: string, password: string): Promise<User | null> {
-        return await this.userRepository.validarLoginn(username, password);
+        return await this.userRepository.validarLogin(username, password);
     }
 
     async create(userData: Partial<User>): Promise<User> {

@@ -48,24 +48,6 @@ export class UserController {
         }
     }
 
-    async login(req: Request, res: Response) { 
-        console.log('login');
-        try {
-            const {username, password}=req.query; 
-            const user = await this.userService.validarLogin(username as string, password as string);
-
-            if (!user) {
-                res.status(401).json({ message: "Login fallido"});
-                return;
-            }
-
-            res.status(200).json({ message: "Login exitoso" }); 
-        }catch (error) {
-            res.status(500).json({ message: 'Error en el servidor' });
-            
-        }
-    }
-
     async create(req: Request, res: Response) {
         try {
             const newUser = await this.userService.create(req.body);
@@ -105,5 +87,24 @@ export class UserController {
             res.status(500).json({ message: 'Error eliminando el usuario', error });
         }
     }
+
+
+    async login(req: Request, res: Response) {
+        console.log('login');
+        try {
+            const { username, password } = req.body; 
+
+            const user = await this.userService.validarLogin(username as string, password as string);
+    
+            if (!user) {
+                res.status(401).json({ message: "Login fallido" });
+                return;
+            }
+            res.status(200).json({ message: "Login exitoso" });
+        } catch (error) {
+            res.status(500).json({ message: 'Error en el servidor' });
+        }
+    }
+    
 
 }
